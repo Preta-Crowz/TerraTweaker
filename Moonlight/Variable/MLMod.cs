@@ -5,6 +5,7 @@ using Moonlight.Vanilla;
 namespace Moonlight.Variable{
     class MLMod : IVariable{
         public Mod Value;
+        public bool isEnded = false;
 
         public MLMod(string name){
             this.Value = ModLoader.GetMod(name);

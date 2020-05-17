@@ -6,6 +6,7 @@ namespace Moonlight.Variable{
     class MLGroup : IIngredient{
         List<MLItem> Value = new List<MLItem>();
         string Name;
+        public bool isEnded = false;
 
         public MLGroup(string name){
             this.Name = name;

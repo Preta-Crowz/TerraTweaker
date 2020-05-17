@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 namespace Moonlight.Variable{
     class MLRecipe : IVariable{
         MLItem Value;
+        public bool isEnded = false;
 
         List<IIngredient> Ingredient = new List<IIngredient>();
         List<MLTile> Requirement = new List<MLTile>();

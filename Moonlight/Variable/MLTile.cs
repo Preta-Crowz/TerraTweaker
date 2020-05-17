@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 namespace Moonlight.Variable{
     class MLTile : IVariable{
         ModTile Value;
+        public bool isEnded = false;
 
         public MLTile(string mod, string name){
             Mod m = ModLoader.GetMod(mod);

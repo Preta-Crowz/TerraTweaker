@@ -1,6 +1,7 @@
 namespace Moonlight.Variable{
     class MLInteger : IVariable{
         int Value;
+        public bool isEnded = false;
 
         public MLInteger(int Value){
             this.Value = Value;

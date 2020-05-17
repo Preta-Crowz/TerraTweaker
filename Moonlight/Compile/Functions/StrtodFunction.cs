@@ -14,7 +14,7 @@ namespace Moonlight.Compile.Functions{
         }
         public string Item{ private get; set; }
 
-        private IVariable Parse(string item){
+        private IVariable Parse(string item, bool isEnd = false){
             int a;
             dynamic V;
             item = item.Trim();
@@ -28,7 +28,7 @@ namespace Moonlight.Compile.Functions{
                 V.Add(Parse(item.Substring(1)));
             }
             else if(item.EndsWith("]") || item.EndsWith(")")){
-                V = Parse(item.Substring(0, item.Length-1));
+                V = Parse(item.Substring(0, item.Length-1), true);
             }
             else if(int.TryParse(item, out a)){
                 V = new MLInteger(a);
@@ -36,6 +36,7 @@ namespace Moonlight.Compile.Functions{
             else{
                 V = new MLRaw(item);
             }
+            V.isEnded = isEnd;
             tt.Value.Logger.Debug("Parsed to "+V);
             return V;
         }

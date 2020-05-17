@@ -27,13 +27,13 @@ namespace Moonlight.Compile{
         }
 
         public bool CanMerge(Cell other){
-            return this.Priority >= other.Priority;
+            return (this.Priority >= other.Priority) || ((this.Action == '(') && (other.Action == ')'));
         }
 
         public void MergeCell(Cell other){
             switch(this.Action){
                 case ':':
-                    if(this.Value is MLArray){
+                    if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
                         int cnt = this.Value.Value.Count-1;
                         this.Value.Value[cnt] = this.Value.Value[cnt].GetItem(other.Value.ToString());
                         break;
@@ -41,20 +41,36 @@ namespace Moonlight.Compile{
                     this.Value = this.Value.GetItem(other.Value.ToString());
                     break;
                 case '$':
-                    if(this.Value is MLArray){
+                    if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
                         int cnt = this.Value.Value.Count-1;
                         this.Value.Value[cnt] = this.Value.Value[cnt].GetItem(other.Value.ToString());
                         break;
                     }
                     this.Value = this.Value.GetTile(other.Value.ToString());
                     break;
-                case '*': this.Value.Multiply(other.Value.ToInt());
+                case '*':
+                    if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
+                        int cnt = this.Value.Value.Count-1;
+                        this.Value.Value[cnt].Multiply(other.Value.ToInt());
+                        break;
+                    }
+                    this.Value.Multiply(other.Value.ToInt());
                     break;
                 case '(':
                     throw new ArgumentException("function");
                     break;
                 case ',':
-                    if(!(this.Value is MLArray)){
+                    if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
+                        int cnt = this.Value.Value.Count-1;
+                        if(!(this.Value.Value[cnt] is MLArray)){
+                            dynamic V = this.Value;
+                            this.Value.Value[cnt] = new MLArray();
+                            this.Value.Value[cnt].Add(V);
+                        }
+                        this.Value.Value[cnt].Add(other.Value);
+                        break;
+                    }
+                    else if(!(this.Value is MLArray)){
                         dynamic V = this.Value;
                         this.Value = new MLArray();
                         this.Value.Add(V);

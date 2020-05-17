@@ -1,6 +1,7 @@
 namespace Moonlight.Variable{
     class MLString : IVariable{
         string Value;
+        public bool isEnded = false;
 
         public MLString(string Value){
             this.Value = Value;

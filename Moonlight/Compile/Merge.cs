@@ -5,25 +5,43 @@ using Terraria.ModLoader;
 
 namespace Moonlight.Compile{
     class Merge{
-        static public MLMod tt = new MLMod("TerraTweaker");
+        public static MLMod tt = new MLMod("TerraTweaker");
 
         public static int Priority(char action){
             switch(action){
                 case ':':
                 case '$': return 9;
                 case '*': return 8;
-                case ',': return -9;
-                case ')': return -10;
+                case ',': return 3;
+                case '(': return 2;
+                case ')': return 1;
                 default: return 0;
         }}
 
         public static IVariable Work(Cell curr, ref int index, List<Cell> cells, bool onlyOne = false){
+            if(index >= 14){
+                index++;
+                if(index>=17) throw new ArgumentException("test\n" + curr.Action +"\n");
+                return curr.Value;
+            }
+            tt.Value.Logger.Debug("Start Merge Cells with " + cells.Count + " Cells, index " + index);
             while(index < cells.Count){
+                // IDK why it's buggy
                 Cell next = cells[index++];
-                while(!curr.CanMerge(next)) Work(next, ref index, cells, true);
+                tt.Value.Logger.Debug("Checking possibility");
+                tt.Value.Logger.Debug("Left : " + curr.Action + "/" + curr.Value);
+                tt.Value.Logger.Debug("Right : " + next.Action + "/" + next.Value);
+                while(!curr.CanMerge(next)){
+                    tt.Value.Logger.Debug("Can\'t merge " + curr.Action + " to " + next.Action + "! try next");
+                    Work(next, ref index, cells, true);
+                }
+                tt.Value.Logger.Debug("Merge two cells");
+                tt.Value.Logger.Debug("Left : " + curr.Action + "/" + curr.Value);
+                tt.Value.Logger.Debug("Right : " + next.Action + "/" + next.Value);
                 curr.MergeCell(next);
                 if(onlyOne) return curr.Value;
             }
+            tt.Value.Logger.Debug("Done Merge : " + curr.Action + " is current action");
             return curr.Value;
         }
     }

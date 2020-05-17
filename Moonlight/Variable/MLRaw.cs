@@ -1,6 +1,7 @@
 namespace Moonlight.Variable{
     class MLRaw : IVariable{
         string Value;
+        public bool isEnded = false;
 
         public MLRaw(string Value){
             this.Value = Value;

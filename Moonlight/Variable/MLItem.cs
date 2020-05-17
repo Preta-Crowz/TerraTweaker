@@ -6,6 +6,7 @@ namespace Moonlight.Variable{
         public int Code;
         public int Count = 1;
         string Name;
+        public bool isEnded = false;
 
         public MLItem(string mod, string name){
             Mod m = ModLoader.GetMod(mod);
