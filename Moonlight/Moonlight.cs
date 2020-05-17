@@ -1,0 +1,5 @@
+namespace Moonlight{
+    class Moonlight{
+        
+    }
+}
