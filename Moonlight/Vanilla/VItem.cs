@@ -4,6 +4,7 @@ using Moonlight.Variable;
 namespace Moonlight.Vanilla{
     class VItem : MLItem{
         string Name;
+        int Code;
 
         public VItem(string name){
             Name = name;

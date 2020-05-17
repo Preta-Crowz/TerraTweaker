@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using System;
@@ -7,6 +8,8 @@ using Moonlight.Variable;
 
 namespace Moonlight{
     class Script{
+        MLMod tt = new MLMod("TerraTweaker");
+
         public string dir;
         public string script;
 
@@ -30,8 +33,13 @@ namespace Moonlight{
 
         public void Compile(){
             if(!this.IsLoaded()) this.Load();
-            int index = 0;
-            vv = Split.Parse(script, ref index, ';');
+            foreach(string r_expr in script.Split(';')){
+                string expr = Regex.Replace(r_expr, "\r?\n+[ \t]*", " ");
+                if(expr == "") continue;
+                int index = 0;
+                tt.Value.Logger.Debug("Start Parsing Expr : "+expr);
+                vv = Split.Parse(expr, ref index, ';');
+            }
         }
 
         public bool IsLoaded(){

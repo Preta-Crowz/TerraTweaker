@@ -10,10 +10,13 @@ namespace Moonlight.Compile{
         private static Dictionary<string, ParserFunction> m_functions =
             new Dictionary<string, ParserFunction>();
 
+        MLMod tt = new MLMod("TerraTweaker");
+
         private bool inited = false;
 
         internal ParserFunction(string data, ref int from, string item, char ch){
-            if(!inited && m_functions.Count == 0) init();
+            // if(!inited && m_functions.Count == 0) init();
+            // tt.Value.Logger.Debug("New ParserFunc With Data : "+data);
 
             if(item.Length == 0 && ch == Split.START_ARG){
                 m_impl = s_idFunction;
@@ -44,7 +47,7 @@ namespace Moonlight.Compile{
         private void init(){
             if(inited) return;
             inited = true;
-            // m_functions.Add("recipe", new RecipeFunction());
+            m_functions.Add("recipe", new RecipeFunction());
         }
     }
 }

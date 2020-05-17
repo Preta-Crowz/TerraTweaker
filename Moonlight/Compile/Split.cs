@@ -22,10 +22,12 @@ namespace Moonlight.Compile{
                     item.Append(ch);
                     if(from < data.Length && data[from] != end) continue;
                 }
-                ParserFunction func = new ParserFunction(data, ref from, item.ToString(), ch);
+                string s_item = item.ToString();
+                ParserFunction func = new ParserFunction(data, ref from, s_item, ch);
                 IVariable V = func.GetValue(data, ref from);
                 char action = ValidAction(ch) ? ch : UpdateAction(data, ref from, ch, end);
-                cells.Add(new Cell(V, action));
+                bool isEnd = s_item.EndsWith("]") || s_item.EndsWith(")");
+                cells.Add(new Cell(V, action, isEnd));
                 item.Clear();
             } while (from < data.Length && data[from] != end);
             if(from < data.Length && (data[from] == END_ARG || data[from] == end))

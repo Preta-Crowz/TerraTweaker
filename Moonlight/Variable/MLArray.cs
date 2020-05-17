@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace Moonlight.Variable{
     class MLArray : IVariable{
-        List<IVariable> Value = new List<IVariable>();
+        public List<IVariable> Value = new List<IVariable>();
         string Name;
 
         public MLArray(){

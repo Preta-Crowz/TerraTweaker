@@ -17,18 +17,18 @@ namespace Moonlight.Compile.Functions{
         private IVariable Parse(string item){
             int a;
             dynamic V;
+            item = item.Trim();
             tt.Value.Logger.Debug("Parse : "+item);
             if(item.StartsWith("@")){
                 string name = item.Substring(1);
                 V = name == "Vanilla" ? MLMod.GetVanilla() : new MLMod(name);
             }
-            else if(item.StartsWith("[")){
+            else if(item.StartsWith("[") || item.StartsWith("(")){
                 V = new MLArray();
                 V.Add(Parse(item.Substring(1)));
             }
-            else if(item.StartsWith("(")){
-                V = new MLArgs();
-                V.Add(Parse(item.Substring(1)));
+            else if(item.EndsWith("]") || item.EndsWith(")")){
+                V = Parse(item.Substring(0, item.Length-1));
             }
             else if(int.TryParse(item, out a)){
                 V = new MLInteger(a);

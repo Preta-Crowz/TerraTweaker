@@ -12,6 +12,7 @@ namespace Moonlight.Compile{
                 case ':':
                 case '$': return 9;
                 case '*': return 8;
+                case ',': return -9;
                 case ')': return -10;
                 default: return 0;
         }}
