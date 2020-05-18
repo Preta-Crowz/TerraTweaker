@@ -34,11 +34,13 @@ namespace Moonlight{
         public void Compile(){
             if(!this.IsLoaded()) this.Load();
             foreach(string r_expr in script.Split(';')){
+                if(r_expr == "" || r_expr == " ") continue;
                 string expr = Regex.Replace(r_expr, "\r?\n+[ \t]*", " ");
-                if(expr == "") continue;
+                if(expr == "" || expr == " ") continue;
                 int index = 0;
                 tt.Value.Logger.Debug("Start Parsing Expr : "+expr);
-                vv = Split.Parse(expr, ref index, ';');
+                IVariable Value = Split.Parse(expr, ref index, ';');
+                tt.Value.Logger.Debug("Parsed Expr to : "+Value.ToString());
             }
         }
 

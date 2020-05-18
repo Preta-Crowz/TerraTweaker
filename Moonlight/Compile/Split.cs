@@ -26,7 +26,7 @@ namespace Moonlight.Compile{
                 ParserFunction func = new ParserFunction(data, ref from, s_item, ch);
                 IVariable V = func.GetValue(data, ref from);
                 char action = ValidAction(ch) ? ch : UpdateAction(data, ref from, ch, end);
-                bool isEnd = s_item.EndsWith("]") || s_item.EndsWith(")");
+                bool isEnd = s_item.EndsWith("]") || s_item.EndsWith(")") || V.isEnd();
                 cells.Add(new Cell(V, action, isEnd));
                 item.Clear();
             } while (from < data.Length && data[from] != end);

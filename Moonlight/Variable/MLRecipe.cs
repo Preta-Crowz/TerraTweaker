@@ -7,6 +7,10 @@ namespace Moonlight.Variable{
         MLItem Value;
         public bool isEnded = false;
 
+        public bool isEnd(){
+            return isEnded;
+        }
+
         List<IIngredient> Ingredient = new List<IIngredient>();
         List<MLTile> Requirement = new List<MLTile>();
 
@@ -45,7 +49,12 @@ namespace Moonlight.Variable{
         }
 
         public string ToString(){
-            return "Recipe:" + Value.ToString();
+            return this.ToString(false);
+        }
+
+        public string ToString(bool rec = false){
+            if(isEnded && !rec) return this.ToString(true)+"!";
+            return "<Recipe:" + Value.ToString() + ">";
         }
 
         public dynamic GetValue(){
@@ -54,7 +63,7 @@ namespace Moonlight.Variable{
 
         public MLItem GetItem(string name){return new MLItem();}
         public MLTile GetTile(string name){return new MLTile();}
-        public void Multiply(int multi){}
+        public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
     }
 }

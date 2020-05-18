@@ -6,6 +6,11 @@ namespace Moonlight.Variable{
     class MLMod : IVariable{
         public Mod Value;
         public bool isEnded = false;
+        public bool isVanilla = false;
+
+        public bool isEnd(){
+            return isEnded;
+        }
 
         public MLMod(string name){
             this.Value = ModLoader.GetMod(name);
@@ -20,15 +25,28 @@ namespace Moonlight.Variable{
         }
 
         public MLItem GetItem(string name){
-            return new MLItem(this.Value.GetItem(name));
+            if(isVanilla) return new VItem(name);
+            MLItem item = new MLItem(this.Value.GetItem(name));
+            item.isEnded = this.isEnded;
+            return item;
         }
 
         public MLTile GetTile(string name){
-            return new MLTile(this.Value.GetTile(name));
+            if(isVanilla) return new VTile(name);
+            MLTile item = new MLTile(this.Value.GetTile(name));
+            item.isEnded = this.isEnded;
+            return item;
         }
 
         public string ToString(){
-            return Value.Name;
+            return this.ToString(false);
+        }
+
+        public string ToString(bool rec = false){
+            if(isEnded && !rec) return this.ToString(true)+"!";
+            if(isVanilla) return "<Mod^Terraria>";
+            else if(Value == null) return "<UnknownMod>";
+            return "<Mod^" + Value.Name + ">";
         }
 
         public static MLMod GetVanilla(){
@@ -39,7 +57,7 @@ namespace Moonlight.Variable{
             return Value;
         }
 
-        public void Multiply(int multi){}
+        public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
     }
 }

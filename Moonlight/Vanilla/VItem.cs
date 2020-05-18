@@ -3,10 +3,9 @@ using Moonlight.Variable;
 
 namespace Moonlight.Vanilla{
     class VItem : MLItem{
-        string Name;
-        int Code;
 
         public VItem(string name){
+            isVanilla = true;
             Name = name;
             Code = (int)Enum.Parse(typeof(ItemID), name);
         }
@@ -16,7 +15,7 @@ namespace Moonlight.Vanilla{
         }
 
         public string ToString(){
-            return Name;
+            return "<Terraria:" + Name + ">";
         }
     }
 }

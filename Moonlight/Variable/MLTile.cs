@@ -3,7 +3,14 @@ using Terraria.ModLoader;
 namespace Moonlight.Variable{
     class MLTile : IVariable{
         ModTile Value;
+        public string Name;
+        public int Code;
         public bool isEnded = false;
+        public bool isVanilla = false;
+
+        public bool isEnd(){
+            return isEnded;
+        }
 
         public MLTile(string mod, string name){
             Mod m = ModLoader.GetMod(mod);
@@ -31,16 +38,24 @@ namespace Moonlight.Variable{
         }
 
         public string ToString(){
-            return Value.Name;
+            return this.ToString(false);
+        }
+
+        public string ToString(bool rec = false){
+            if(isEnded && !rec) return this.ToString(true)+"!";
+            if(isVanilla) return "<Terraria$" + Name + ">";
+            else if(this.Parent() == null) return "<UnknownTile^" + Value.Name + ">";
+            return "<" + this.Parent().Name + "$" + Value.Name + ">";
         }
 
         public dynamic GetValue(){
+            if(isVanilla) return Code;
             return Value;
         }
 
         public MLItem GetItem(string name){return new MLItem();}
         public MLTile GetTile(string name){return new MLTile();}
-        public void Multiply(int multi){}
+        public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
     }
 }

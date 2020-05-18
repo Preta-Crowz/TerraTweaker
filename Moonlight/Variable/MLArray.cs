@@ -8,6 +8,10 @@ namespace Moonlight.Variable{
         string Name;
         public bool isEnded = false;
 
+        public bool isEnd(){
+            return isEnded;
+        }
+
         public int Count{ get{
             return Value.Count;
         }}
@@ -33,16 +37,32 @@ namespace Moonlight.Variable{
         }
 
         public string ToString(){
-            return Name;
+            return this.ToString(false);
+        }
+
+        public string ToString(bool rec = false){
+            if(isEnded && !rec) return this.ToString(true)+"!";
+            string s_val = "";
+            for(int i=0;i<this.Value.Count;i++){
+                s_val += this.Value[i].ToString();
+                if(i<this.Value.Count-1) s_val += ", ";
+            }
+            return "[" + s_val + "]";
         }
 
         public dynamic GetValue(){
             return Value;
         }
 
-        public MLItem GetItem(string name){return new MLItem();}
-        public MLTile GetTile(string name){return new MLTile();}
-        public void Multiply(int multi){}
+        public MLItem GetItem(string name){
+            return this[this.Count-1].GetItem(name);
+        }
+
+        public MLTile GetTile(string name){
+            return this[this.Count-1].GetTile(name);
+        }
+        
+        public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
     }
 }

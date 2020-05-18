@@ -33,8 +33,8 @@ namespace TerraTweaker{
             foreach(string name in this.ScriptFiles){
                 Script script = new Script(Path.Combine(this.ScriptPath, name));
                 script.Compile();
-                this.Logger.Debug(script.vv);
-                this.Logger.Debug(script.vv.ToString());
+                // this.Logger.Debug(script.vv);
+                // this.Logger.Debug(script.vv.ToString());
                 this.Logger.Debug(name);
                 this.Logger.Debug(script.script);
                 // List<MLRecepe> recipes = script.GetRecipes();

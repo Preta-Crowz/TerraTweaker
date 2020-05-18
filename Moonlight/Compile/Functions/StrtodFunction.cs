@@ -36,8 +36,8 @@ namespace Moonlight.Compile.Functions{
             else{
                 V = new MLRaw(item);
             }
-            V.isEnded = isEnd;
-            tt.Value.Logger.Debug("Parsed to "+V);
+            V.isEnded = (isEnd || V.isEnded);
+            tt.Value.Logger.Debug("Parsed to "+V.ToString());
             return V;
         }
     }

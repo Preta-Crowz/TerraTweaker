@@ -15,18 +15,7 @@ namespace Moonlight.Vanilla{
         }
 
         public Vanilla(){
-        }
-
-        public VItem GetItem(string name){
-            return new VItem(name);
-        }
-
-        public VTile GetTile(string name){
-            return new VTile(name);
-        }
-
-        public string ToString(){
-            return "Vanilla";
+            isVanilla = true;
         }
     }
 }

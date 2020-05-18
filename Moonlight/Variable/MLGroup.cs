@@ -8,6 +8,10 @@ namespace Moonlight.Variable{
         string Name;
         public bool isEnded = false;
 
+        public bool isEnd(){
+            return isEnded;
+        }
+
         public MLGroup(string name){
             this.Name = name;
         }
@@ -22,7 +26,12 @@ namespace Moonlight.Variable{
         }
 
         public string ToString(){
-            return Name;
+            return this.ToString(false);
+        }
+
+        public string ToString(bool rec = false){
+            if(isEnded && !rec) return this.ToString(true)+"!";
+            return "<TerraTweaker^"+Name+">";
         }
 
         public dynamic GetValue(){
@@ -31,7 +40,7 @@ namespace Moonlight.Variable{
 
         public MLItem GetItem(string name){return new MLItem();}
         public MLTile GetTile(string name){return new MLTile();}
-        public void Multiply(int multi){}
+        public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
     }
 }
