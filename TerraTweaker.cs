@@ -10,10 +10,7 @@ using Moonlight.Variable;
 
 namespace TerraTweaker{
     class TerraTweaker : Mod{
-        public string DisplayName;
-        public TerraTweaker(){
-            this.DisplayName = "TerraTweaker";
-        }
+        public TerraTweaker(){}
         public readonly ModProperties Properties = ModProperties.AutoLoadAll;
 
         private string DataPath, ScriptPath;
