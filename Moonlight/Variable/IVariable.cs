@@ -10,5 +10,6 @@ namespace Moonlight.Variable{
         int ToInt();
         dynamic GetValue();
         bool isEnd();
+        string GetType();
     }
 }

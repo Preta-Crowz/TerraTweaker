@@ -16,10 +16,12 @@ namespace Moonlight.Variable{
         public MLItem(string mod, string name){
             Mod m = ModLoader.GetMod(mod);
             Value = m.GetItem(name);
+            Name = name;
         }
 
         public MLItem(Mod m, string name){
             Value = m.GetItem(name);
+            Name = name;
         }
 
         public MLItem(ModItem item){
@@ -62,5 +64,9 @@ namespace Moonlight.Variable{
         public MLItem GetItem(string name){return new MLItem();}
         public MLTile GetTile(string name){return new MLTile();}
         public int ToInt(){return 0;}
+
+        public string GetType(){
+            return "Item";
+        }
     }
 }

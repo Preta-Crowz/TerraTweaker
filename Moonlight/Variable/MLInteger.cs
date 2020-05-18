@@ -32,5 +32,9 @@ namespace Moonlight.Variable{
         public MLItem GetItem(string name){return new MLItem();}
         public MLTile GetTile(string name){return new MLTile();}
         public int ToInt(){return Value;}
+
+        public string GetType(){
+            return "Integer";
+        }
     }
 }

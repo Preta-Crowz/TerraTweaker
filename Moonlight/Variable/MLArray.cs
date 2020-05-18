@@ -64,5 +64,9 @@ namespace Moonlight.Variable{
         
         public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
+
+        public string GetType(){
+            return "Array";
+        }
     }
 }

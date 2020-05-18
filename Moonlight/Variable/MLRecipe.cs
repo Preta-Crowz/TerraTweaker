@@ -11,8 +11,8 @@ namespace Moonlight.Variable{
             return isEnded;
         }
 
-        List<IIngredient> Ingredient = new List<IIngredient>();
-        List<MLTile> Requirement = new List<MLTile>();
+        public List<IIngredient> Ingredient = new List<IIngredient>();
+        public List<MLTile> Requirement = new List<MLTile>();
 
         bool ReqWater = false;
         bool ReqLava = false;
@@ -65,5 +65,9 @@ namespace Moonlight.Variable{
         public MLTile GetTile(string name){return new MLTile();}
         public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
+
+        public string GetType(){
+            return "Recipe";
+        }
     }
 }
