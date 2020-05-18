@@ -1,2 +1,7 @@
 Modify Recipes with Custom Script
-Script information is on github, press homepage button to go.
+Recipe addition only for now.
+
+Syntax information is on github wiki.
+
+Github : https://github.com/Preta-Crowz/TerraTweaker
+Discord : Preta#1614
