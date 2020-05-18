@@ -1,3 +1,4 @@
 displayName = TerraTweaker
 author = NekoP
 version = 1.0
+homepage = https://github.com/Preta-Crowz/TerraTweaker
