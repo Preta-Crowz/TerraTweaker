@@ -44,7 +44,7 @@ namespace Moonlight{
                 tt.Value.Logger.Debug("Parsed Expr to : "+Value.ToString());
                 string vt = Value.GetType();
                 if(vt == "Recipe") recipes.Add((MLRecipe)Value);
-                else if(vt == "Remove") removes.Add((MLItem)Value);
+                else if(vt == "Remove") removes.Add((MLItem)Value.GetValue());
             }
         }
 
@@ -59,6 +59,11 @@ namespace Moonlight{
         public List<MLRecipe> GetRecipes(){
             if(!this.IsCompiled()) this.Compile();
             return this.recipes;
+        }
+
+        public List<MLItem> GetRemoves(){
+            if(!this.IsCompiled()) this.Compile();
+            return this.removes;
         }
     }
 }

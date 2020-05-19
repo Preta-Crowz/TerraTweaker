@@ -60,7 +60,7 @@ namespace Moonlight.Compile{
         public static IVariable Process(string name, MLArray args){
             switch(name){
                 case "recipe": return RecipeProcessor.Work(args);
-                // case "remove": return RemoveProcessor.Work(args);
+                case "remove": return RemoveProcessor.Work(args);
             }
             return new MLRaw("dummy");
         }

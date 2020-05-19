@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
@@ -18,6 +19,7 @@ namespace TerraTweaker{
         private List<string> Errors = new List<string>();
 
         private List<MLRecipe> recipes = new List<MLRecipe>();
+        private List<MLItem> removes = new List<MLItem>();
 
         public override void Load(){
             this.DataPath = Path.GetDirectoryName(Logging.LogDir);
@@ -41,16 +43,19 @@ namespace TerraTweaker{
                 script.Compile();
                 this.Logger.Info("Compiled " + name);
                 int i = 0;
-                foreach(MLRecipe recipe in script.GetRecipes()){
-                    this.Logger.Debug("TEST : " + (i++) + " / " + recipe.ToString());
+                foreach(MLRecipe recipe in script.GetRecipes())
                     recipes.Add((MLRecipe)recipe);
-                }
+                foreach(MLItem item in script.GetRemoves())
+                    removes.Add(item);
+
             }
         }
 
         public override void AddRecipes(){
+            foreach(MLItem item in removes)
+                RemoveRecipe(item);
             foreach(MLRecipe recipe in recipes)
-                RegisterRecipe((MLRecipe)recipe);
+                RegisterRecipe(recipe);
         }
 
         public void RegisterRecipe(MLRecipe data){
@@ -71,6 +76,15 @@ namespace TerraTweaker{
             recipe.SetResult(data.GetValue().GetValue(), data.GetValue().Count);
             recipe.AddRecipe();
             this.Logger.Debug("Added recipe for : " + data.GetValue().ToString());
+        }
+
+        public void RemoveRecipe(MLItem data){
+            RecipeFinder finder = new RecipeFinder();
+            finder.SetResult(data.GetValue());
+            foreach(Recipe recipe in finder.SearchRecipes()){
+                RecipeEditor editor = new RecipeEditor(recipe);
+                editor.DeleteRecipe();
+            }
         }
     }
 }

@@ -75,6 +75,11 @@ namespace Moonlight.Compile{
                     break;
                 case '(':
                     if(!Merge.isValidProcess(this.Value.GetValue())) throw new ArgumentException(this.Value + " is not valid process name");
+                    if(!(other.Value is MLArray)){
+                        IVariable temp = other.Value;
+                        other.Value = new MLArray();
+                        other.Value.Add(temp);
+                    }
                     this.Value = Merge.Process(this.Value.GetValue(), other.Value);
                     break;
                 case ',':

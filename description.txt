@@ -1,5 +1,5 @@
 Modify Recipes with Custom Script
-Recipe addition only for now.
+only recipe add/remove is aviliable for now.
 
 Syntax information is on github wiki.
 
