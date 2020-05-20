@@ -1,6 +1,6 @@
 # TerraTweaker
 Modify Terraria Recipe with Custom Script  
-Recipe addition only for now.
+Add/Remove Recipe only works for now.
 
 ## Moonlight
 Custom Script System for TerraTweaker  
