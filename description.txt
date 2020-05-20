@@ -1,6 +1,11 @@
 Modify Recipes with Custom Script
 only recipe add/remove is aviliable for now.
 
+Script files should go /Scripts folder under data folder.
+Script files should has ".moon" extension.
+
+Use command /tt for some utils.
+
 Syntax information is on github wiki.
 
 Github : https://github.com/Preta-Crowz/TerraTweaker
