@@ -54,12 +54,14 @@ namespace Moonlight.Variable{
             return Value;
         }
 
-        public MLItem GetItem(string name){
-            return this[this.Count-1].GetItem(name);
+        public MLItem GetItem(IVariable raw){
+            this.isEnded = raw.isEnd();
+            return this[this.Count-1].GetItem(raw);
         }
 
-        public MLTile GetTile(string name){
-            return this[this.Count-1].GetTile(name);
+        public MLTile GetTile(IVariable raw){
+            this.isEnded = raw.isEnd();
+            return this[this.Count-1].GetTile(raw);
         }
         
         public void Multiply(MLInteger input){}

@@ -4,8 +4,8 @@ namespace Moonlight.Variable{
     interface IVariable{
         string ToString();
         string ToString(bool rec);
-        MLItem GetItem(string name);
-        MLTile GetTile(string name);
+        MLItem GetItem(IVariable raw);
+        MLTile GetTile(IVariable raw);
         void Multiply(MLInteger input);
         int ToInt();
         dynamic GetValue();

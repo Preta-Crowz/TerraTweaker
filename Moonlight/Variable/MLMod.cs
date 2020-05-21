@@ -24,14 +24,18 @@ namespace Moonlight.Variable{
             Value = null;
         }
 
-        public MLItem GetItem(string name){
+        public MLItem GetItem(IVariable raw){
+            string name = raw.GetValue();
+            this.isEnded = raw.isEnd();
             if(isVanilla) return new VItem(name);
             MLItem item = new MLItem(this.Value.GetItem(name));
             item.isEnded = this.isEnded;
             return item;
         }
 
-        public MLTile GetTile(string name){
+        public MLTile GetTile(IVariable raw){
+            string name = raw.GetValue();
+            this.isEnded = raw.isEnd();
             if(isVanilla) return new VTile(name);
             MLTile item = new MLTile(this.Value.GetTile(name));
             item.isEnded = this.isEnded;

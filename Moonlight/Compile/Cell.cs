@@ -39,26 +39,32 @@ namespace Moonlight.Compile{
                         int cnt = this.Value.Value.Count-1;
                         if(this.Value.Value[cnt] is MLArray){
                             int icnt = this.Value.Value[cnt].Count-1;
-                            this.Value.Value[cnt][icnt] = this.Value.Value[cnt][icnt].GetItem(other.Value.GetValue());
+                            this.Value.Value[cnt][icnt] = this.Value.Value[cnt][icnt].GetItem(other.Value);
+                            this.Value.Value[cnt][icnt].isEnded = other.Value.isEnded;
                             break;
                         }
-                        this.Value.Value[cnt] = this.Value.Value[cnt].GetItem(other.Value.GetValue());
+                        this.Value.Value[cnt] = this.Value.Value[cnt].GetItem(other.Value);
+                        this.Value.Value[cnt].isEnded = other.Value.isEnded;
                         break;
                     }
-                    this.Value = this.Value.GetItem(other.Value.GetValue());
+                    this.Value = this.Value.GetItem(other.Value);
+                    this.Value.isEnded = other.Value.isEnded;
                     break;
                 case '$':
                     if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
                         int cnt = this.Value.Value.Count-1;
                         if(this.Value.Value[cnt] is MLArray){
                             int icnt = this.Value.Value[cnt].Count-1;
-                            this.Value.Value[cnt][icnt] = this.Value.Value[cnt][icnt].GetTile(other.Value.GetValue());
+                            this.Value.Value[cnt][icnt] = this.Value.Value[cnt][icnt].GetTile(other.Value);
+                            this.Value.Value[cnt][icnt].isEnded = other.Value.isEnded;
                             break;
                         }
-                        this.Value.Value[cnt] = this.Value.Value[cnt].GetItem(other.Value.GetValue());
+                        this.Value.Value[cnt] = this.Value.Value[cnt].GetTile(other.Value);
+                        this.Value.Value[cnt].isEnded = other.Value.isEnded;
                         break;
                     }
-                    this.Value = this.Value.GetTile(other.Value.GetValue());
+                    this.Value = this.Value.GetTile(other.Value);
+                    this.Value.isEnded = other.Value.isEnded;
                     break;
                 case '*':
                     if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){

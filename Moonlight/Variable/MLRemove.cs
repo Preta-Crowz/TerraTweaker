@@ -31,8 +31,8 @@ namespace Moonlight.Variable{
             return Value;
         }
 
-        public MLItem GetItem(string name){return new MLItem();}
-        public MLTile GetTile(string name){return new MLTile();}
+        public MLItem GetItem(IVariable raw){return new MLItem();}
+        public MLTile GetTile(IVariable raw){return new MLTile();}
         public void Multiply(MLInteger input){}
         public int ToInt(){return 0;}
 
