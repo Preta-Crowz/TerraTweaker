@@ -51,7 +51,7 @@ namespace TerraTweaker{
                     caller.Reply("You don\'t hold any item.");
                     return;
                 }
-                caller.Reply("Name : " + Enum.GetName(typeof(ItemID), vitem.type));
+                caller.Reply(Lang.GetItemName(vitem.type).Key.Split('.')[1]);
                 caller.Reply("Code : " + vitem.type);
                 caller.Reply("Max Stack : " + vitem.maxStack);
                 return;

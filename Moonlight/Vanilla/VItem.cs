@@ -10,7 +10,7 @@ namespace Moonlight.Vanilla{
             isVanilla = true;
             Name = name;
             FieldInfo field = typeof(ItemID).GetField(name);
-            Code = (int)field.GetValue(null);
+            Code = Convert.ToInt32(field.GetValue(null));
         }
 
         public dynamic GetValue(){
