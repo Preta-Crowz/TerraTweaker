@@ -51,7 +51,7 @@ namespace TerraTweaker{
             }
         }
 
-        public override void AddRecipes(){
+        public override void PostAddRecipes(){
             foreach(MLItem item in removes)
                 RemoveRecipe(item);
             foreach(MLRecipe recipe in recipes)
