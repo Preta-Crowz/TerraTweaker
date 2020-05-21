@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using Terraria.ID;
 using Moonlight.Variable;
 
 namespace Moonlight.Vanilla{
@@ -7,7 +9,8 @@ namespace Moonlight.Vanilla{
         public VTile(string name){
             isVanilla = true;
             Name = name;
-            Code = (int)Enum.Parse(typeof(TileID), name);
+            FieldInfo field = typeof(TileID).GetField(name);
+            Code = (int)field.GetValue(null);
         }
 
         public dynamic GetValue(){
