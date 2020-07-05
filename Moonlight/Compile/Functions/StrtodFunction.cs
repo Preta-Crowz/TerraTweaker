@@ -21,7 +21,8 @@ namespace Moonlight.Compile.Functions{
             tt.Value.Logger.Debug("Parse : "+item);
             if(item.StartsWith("@")){
                 string name = item.Substring(1);
-                V = name == "Vanilla" ? MLMod.GetVanilla() : new MLMod(name);
+                V = ((name == "Terraria") || (name == "Vanilla")) ?
+                    MLMod.GetVanilla() : new MLMod(name);
             }
             else if(item.StartsWith("[") || item.StartsWith("(")){
                 V = new MLArray();
