@@ -1,6 +1,7 @@
 # TerraTweaker
 [![Discord](https://img.shields.io/discord/852091797303853096?color=%23F8BBD0)](https://discord.gg/PTd3nMBWFq)
 [![License](https://img.shields.io/github/license/Preta-Crowz/TerraTweaker?color=%23aeeaff)](https://github.com/Preta-Crowz/TerraTweaker/blob/master/LICENSE)
+
 Modify Terraria Recipe with Custom Script  
 Add/Remove Recipe only works for now.
 
