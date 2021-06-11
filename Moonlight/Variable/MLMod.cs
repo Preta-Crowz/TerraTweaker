@@ -28,7 +28,7 @@ namespace Moonlight.Variable{
             string name = raw.GetValue();
             this.isEnded = raw.isEnd();
             if(isVanilla) return new VItem(name);
-            MLItem item = new MLItem(this.Value.GetItem(name));
+            MLItem item = new MLItem(ModContent.Find<ModItem>(this.Value.Name, name));
             item.isEnded = this.isEnded;
             return item;
         }
@@ -37,7 +37,7 @@ namespace Moonlight.Variable{
             string name = raw.GetValue();
             this.isEnded = raw.isEnd();
             if(isVanilla) return new VTile(name);
-            MLTile item = new MLTile(this.Value.GetTile(name));
+            MLTile item = new MLTile(ModContent.Find<ModTile>(this.Value.Name, name));
             item.isEnded = this.isEnded;
             return item;
         }
