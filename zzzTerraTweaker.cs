@@ -52,42 +52,44 @@ namespace zzzTerraTweaker{
         }
 
         public override void PostAddRecipes(){
-            foreach(MLItem item in removes)
-                RemoveRecipe(item);
+            RemoveRecipe(removes);
             foreach(MLRecipe recipe in recipes)
                 RegisterRecipe(recipe);
         }
 
         public void RegisterRecipe(MLRecipe data){
-            ModRecipe recipe = new ModRecipe(this);
-            this.Logger.Debug("Register new recipe for : " + data.GetValue().ToString());
+            int res = data.GetValue().Value.type;
+            this.Logger.Debug("Creating new recipe for : " + data.GetValue().ToString() + "(" + res + ")");
+            Recipe r = CreateRecipe(res, data.GetValue().Count);
+
             foreach(MLItem item in data.Ingredient){
-                this.Logger.Debug("Add Ingredient : " + item.ToString());
+                this.Logger.Debug("Adding Ingredient : " + item.ToString());
                 this.Logger.Debug("Raw Data : " + item.GetValue());
-                recipe.AddIngredient(item.GetValue(), item.Count);
+                if(item.isVanilla) r = r.AddIngredient(item.GetValue(), item.Count);
+                else r = r.AddIngredient(item.GetValue().type, item.Count);
             }
+
             foreach(MLTile tile in data.Requirement){
-                this.Logger.Debug("Add Requirement : " + tile.ToString());
+                this.Logger.Debug("Adding Requirement : " + tile.ToString());
                 this.Logger.Debug("Raw Data : " + tile.GetValue());
-                recipe.AddTile(tile.GetValue());
+                if(tile.isVanilla) r = r.AddTile(tile.GetValue());
+                else r = r.AddTile(tile.GetValue().type);
             }
-            this.Logger.Debug("Setting Result : " + data.GetValue().ToString());
-            this.Logger.Debug("Raw Data : " + data.GetValue().GetValue());
-            recipe.SetResult(data.GetValue().GetValue(), data.GetValue().Count);
-            recipe.AddRecipe();
-            this.Logger.Debug("Added recipe for : " + data.GetValue().ToString());
+            this.Logger.Debug("Registering recipe for : " + data.GetValue().ToString() + "(" + res + ")");
+            r.Register();
+            this.Logger.Debug("Registered");
         }
 
-        public void RemoveRecipe(MLItem data){
-            this.Logger.Debug("Removing Recipe for : " + data.ToString());
-            RecipeFinder finder = new RecipeFinder();
-            int code = 0;
-            if (data.isVanilla) code = data.GetValue();
-            else code = data.Parent().ItemType(data.GetValue().Name);
-            finder.SetResult(code);
-            foreach(Recipe recipe in finder.SearchRecipes()){
-                RecipeEditor editor = new RecipeEditor(recipe);
-                editor.DeleteRecipe();
+        public void RemoveRecipe(List<MLItem> data){
+            List<int> targets = new List<int>();
+            foreach(MLItem item in data){
+                if(item.isVanilla) targets.Add(item.GetValue().type);
+                else targets.Add(item.GetValue());
+            }
+            for (int i = 0; i < Recipe.numRecipes; i++) {
+                Recipe R = Main.recipe[i];
+                if(targets.Exists(id => id == R.createItem.type))
+                    R.RemoveRecipe();
             }
             this.Logger.Debug("Removed Recipe for : " + data.ToString());
         }

@@ -1,4 +1,5 @@
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace Moonlight.Variable{
     class MLItem : IIngredient{
@@ -14,13 +15,12 @@ namespace Moonlight.Variable{
         }
 
         public MLItem(string mod, string name){
-            Mod m = ModLoader.GetMod(mod);
-            Value = m.GetItem(name);
+            Value = ModContent.Find<ModItem>(mod, name);
             Name = name;
         }
 
         public MLItem(Mod m, string name){
-            Value = m.GetItem(name);
+            Value = ModContent.Find<ModItem>(m.Name, name);
             Name = name;
         }
 
@@ -33,11 +33,13 @@ namespace Moonlight.Variable{
         }
 
         public ModTile GetTile(){
-            return Value.mod.GetTile(Value.Name);
+            int intTile = Value.Item.createTile;
+            string name = TileID.Search.GetName(intTile);
+            return ModContent.Find<ModTile>(this.Parent().Name, name);
         }
 
         public Mod Parent(){
-            return this.Value.mod;
+            return this.Value.Mod;
         }
 
         public void Multiply(MLInteger input){

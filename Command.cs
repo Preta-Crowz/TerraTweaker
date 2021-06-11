@@ -44,21 +44,18 @@ namespace zzzTerraTweaker{
         }
 
         void HandInfo(CommandCaller caller){
-            ModItem item = caller.Player.HeldItem.modItem;
-            if(item == null || item.mod == null){
-                Item vitem = caller.Player.HeldItem;
-                if(vitem == null){
-                    caller.Reply("You don\'t hold any item.");
-                    return;
-                }
-                caller.Reply(Lang.GetItemName(vitem.type).Key.Split('.')[1]);
-                caller.Reply("Code : " + vitem.type);
-                caller.Reply("Max Stack : " + vitem.maxStack);
+            Item item = caller.Player.HeldItem;
+            if(item == null){
+                caller.Reply("You don\'t hold any item.");
                 return;
             }
-            caller.Reply("From : " + item.mod.Name);
-            caller.Reply("Name : " + item.Name);
-            caller.Reply("Max Stack : " + caller.Player.HeldItem.maxStack);
+            caller.Reply(Lang.GetItemName(item.type).Key.Split('.')[1]);
+            caller.Reply("Code : " + item.type);
+            if(item.ModItem != null) {
+                caller.Reply("From : " + item.ModItem.Mod.Name);
+                caller.Reply("Name : " + item.ModItem.Name);
+            }
+            caller.Reply("Max Stack : " + item.maxStack);
         }
     }
 }
