@@ -58,7 +58,7 @@ namespace zzzTerraTweaker{
         }
 
         public void RegisterRecipe(MLRecipe data){
-            int res = data.GetValue().Value.type;
+            int res = data.GetValue().GetValue().Type;
             this.Logger.Debug("Creating new recipe for : " + data.GetValue().ToString() + "(" + res + ")");
             Recipe r = CreateRecipe(res, data.GetValue().Count);
 
@@ -66,14 +66,14 @@ namespace zzzTerraTweaker{
                 this.Logger.Debug("Adding Ingredient : " + item.ToString());
                 this.Logger.Debug("Raw Data : " + item.GetValue());
                 if(item.isVanilla) r = r.AddIngredient(item.GetValue(), item.Count);
-                else r = r.AddIngredient(item.GetValue().type, item.Count);
+                else r = r.AddIngredient(item.GetValue().Type, item.Count);
             }
 
             foreach(MLTile tile in data.Requirement){
                 this.Logger.Debug("Adding Requirement : " + tile.ToString());
                 this.Logger.Debug("Raw Data : " + tile.GetValue());
                 if(tile.isVanilla) r = r.AddTile(tile.GetValue());
-                else r = r.AddTile(tile.GetValue().type);
+                else r = r.AddTile(tile.GetValue().Type);
             }
             this.Logger.Debug("Registering recipe for : " + data.GetValue().ToString() + "(" + res + ")");
             r.Register();
@@ -83,15 +83,14 @@ namespace zzzTerraTweaker{
         public void RemoveRecipe(List<MLItem> data){
             List<int> targets = new List<int>();
             foreach(MLItem item in data){
-                if(item.isVanilla) targets.Add(item.GetValue().type);
-                else targets.Add(item.GetValue());
+                if(item.isVanilla) targets.Add(item.GetValue());
+                else targets.Add(item.GetValue().type);
             }
             for (int i = 0; i < Recipe.numRecipes; i++) {
                 Recipe R = Main.recipe[i];
                 if(targets.Exists(id => id == R.createItem.type))
                     R.RemoveRecipe();
             }
-            this.Logger.Debug("Removed Recipe for : " + data.ToString());
         }
     }
 }
