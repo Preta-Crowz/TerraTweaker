@@ -8,7 +8,7 @@ using Moonlight.Variable;
 
 namespace Moonlight{
     class Script{
-        MLMod tt = new MLMod("TerraTweaker");
+        MLMod tt = new MLMod("zzzTerraTweaker");
 
         public string dir;
         public string script;

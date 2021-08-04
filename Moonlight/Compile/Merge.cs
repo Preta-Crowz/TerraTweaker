@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace Moonlight.Compile{
     class Merge{
-        public static MLMod tt = new MLMod("TerraTweaker");
+        public static MLMod tt = new MLMod("zzzTerraTweaker");
 
         public static int Priority(char action){
             switch(action){

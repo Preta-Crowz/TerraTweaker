@@ -5,7 +5,7 @@ using Moonlight.Variable;
 
 namespace Moonlight.Compile.Functions{
     class StrtodFunction : ParserFunction{
-        MLMod tt = new MLMod("TerraTweaker");
+        MLMod tt = new MLMod("zzzTerraTweaker");
 
         protected override IVariable Eval(string data, ref int from){
             dynamic V;
