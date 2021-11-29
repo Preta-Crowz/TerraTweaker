@@ -10,7 +10,7 @@ namespace Moonlight.Compile{
         private static Dictionary<string, ParserFunction> m_functions =
             new Dictionary<string, ParserFunction>();
 
-        MLMod tt = new MLMod("TerraTweaker");
+        MLMod tt = new MLMod("zzzTerraTweaker");
 
         private bool inited = false;
 

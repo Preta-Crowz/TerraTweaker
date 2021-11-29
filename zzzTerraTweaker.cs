@@ -9,9 +9,9 @@ using Terraria.ID;
 using Moonlight;
 using Moonlight.Variable;
 
-namespace TerraTweaker{
-    class TerraTweaker : Mod{
-        public TerraTweaker(){}
+namespace zzzTerraTweaker{
+    class zzzTerraTweaker : Mod{
+        public zzzTerraTweaker(){}
         public readonly ModProperties Properties = ModProperties.AutoLoadAll;
 
         private string DataPath, ScriptPath;

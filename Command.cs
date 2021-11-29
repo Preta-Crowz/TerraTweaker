@@ -5,7 +5,7 @@ using Terraria;
 
 using Moonlight.Vanilla;
 
-namespace TerraTweaker{
+namespace zzzTerraTweaker{
     class TTCommand : ModCommand{
         public TTCommand(){}
 

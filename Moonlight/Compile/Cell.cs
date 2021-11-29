@@ -8,7 +8,7 @@ namespace Moonlight.Compile{
         public char Action;
         public bool isEnd;
         public bool isMerged;
-        MLMod tt = new MLMod("TerraTweaker");
+        MLMod tt = new MLMod("zzzTerraTweaker");
 
         private int? cPrio = null;
 
