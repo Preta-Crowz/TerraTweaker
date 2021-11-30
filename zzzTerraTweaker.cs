@@ -79,6 +79,7 @@ namespace zzzTerraTweaker{
         }
 
         public void RemoveRecipe(MLItem data){
+            this.Logger.Debug("Removing Recipe for : " + data.ToString());
             RecipeFinder finder = new RecipeFinder();
             int code = 0;
             if (data.isVanilla) code = data.GetValue();
@@ -88,6 +89,7 @@ namespace zzzTerraTweaker{
                 RecipeEditor editor = new RecipeEditor(recipe);
                 editor.DeleteRecipe();
             }
+            this.Logger.Debug("Removed Recipe for : " + data.ToString());
         }
     }
 }
