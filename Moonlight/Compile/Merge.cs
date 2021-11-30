@@ -20,10 +20,6 @@ namespace Moonlight.Compile{
         }}
 
         public static IVariable Work(Cell curr, ref int index, List<Cell> cells, bool onlyOne = false){
-            if(index >= 14){
-                index++;
-                return curr.Value;
-            }
             tt.Value.Logger.Debug("Start Merge Cells with " + cells.Count + " Cells, index " + index);
             while(index < cells.Count){
                 // IDK why it's buggy
