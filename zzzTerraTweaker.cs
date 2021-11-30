@@ -80,7 +80,10 @@ namespace zzzTerraTweaker{
 
         public void RemoveRecipe(MLItem data){
             RecipeFinder finder = new RecipeFinder();
-            finder.SetResult(data.GetValue());
+            int code = 0;
+            if (data.isVanilla) code = data.GetValue();
+            else code = data.Parent().ItemType(data.Name);
+            finder.SetResult(code);
             foreach(Recipe recipe in finder.SearchRecipes()){
                 RecipeEditor editor = new RecipeEditor(recipe);
                 editor.DeleteRecipe();
