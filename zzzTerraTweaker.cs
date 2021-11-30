@@ -82,7 +82,7 @@ namespace zzzTerraTweaker{
             RecipeFinder finder = new RecipeFinder();
             int code = 0;
             if (data.isVanilla) code = data.GetValue();
-            else code = data.Parent().ItemType(data.Name);
+            else code = data.Parent().ItemType(data.GetValue().Name);
             finder.SetResult(code);
             foreach(Recipe recipe in finder.SearchRecipes()){
                 RecipeEditor editor = new RecipeEditor(recipe);
