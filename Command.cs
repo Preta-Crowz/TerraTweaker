@@ -25,9 +25,11 @@ namespace zzzTerraTweaker{
                 return;
             }
             switch(args[0]){
+                case "help": Help(caller);
+                    break;
                 case "hand": HandInfo(caller);
                     break;
-                case "help": Help(caller);
+                case "syntax": Syntax(caller);
                     break;
                 default:
                     caller.Reply("Unknown subcommand, use /tt help for more information.");
@@ -41,6 +43,8 @@ namespace zzzTerraTweaker{
             caller.Reply("  Display this information.");
             caller.Reply("/tt hand");
             caller.Reply("  Get information about item that you hold.");
+            caller.Reply("/tt syntax");
+            caller.Reply("  Check syntax for scripts without reload.");
         }
 
         void HandInfo(CommandCaller caller){
@@ -56,6 +60,23 @@ namespace zzzTerraTweaker{
                 caller.Reply("Name : " + item.ModItem.Name);
             }
             caller.Reply("Max Stack : " + item.maxStack);
+        }
+
+        void Syntax(CommandCaller caller){
+            zzzTerraTweaker TT = (zzzTerraTweaker)Mod;
+            caller.Reply("Start syntax checking, script count : " + TT.ScriptFiles.Count.ToString());
+            TT.SetupScripts(true);
+            caller.Reply("Done.");
+            caller.Reply("Successfuly compiled : " + TT.Compiled.Count.ToString());
+            if (TT.Failed.Count == 0) caller.Reply("You should reload to apply script to game.");
+            else {
+                caller.Reply("Failed compiled : " + TT.Failed.Count.ToString());
+                caller.Reply("Failed scripts :");
+                foreach (string name in TT.Failed) {
+                    caller.Reply("  " + name);
+                }
+                caller.Reply("Check log file for more information.");
+            }
         }
     }
 }

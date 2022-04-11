@@ -14,43 +14,54 @@ namespace zzzTerraTweaker{
     class zzzTerraTweaker : Mod{
         public zzzTerraTweaker(){}
 
-        private string DataPath, ScriptPath;
-        private List<string> ScriptFiles = new List<string>();
-        private List<string> Errors = new List<string>();
+        public List<string> ScriptFiles { get; private set; }
+        public List<string> Compiled { get; private set; }
+        public List<string> Failed { get; private set; }
         private Dictionary<string,byte[]> HashDict = new Dictionary<string,byte[]>();
         private Dictionary<string,byte[]> ServerHash;
+        public static readonly string ScriptPath = Path.Combine(Main.SavePath, "Scripts");
 
-        private List<MLRecipe> recipes = new List<MLRecipe>();
-        private List<MLItem> removes = new List<MLItem>();
+        public List<MLRecipe> recipes { get; private set; }
+        public List<MLItem> removes { get; private set; }
 
         public override void Load(){
-            this.ScriptPath = Path.Combine(Main.SavePath, "Scripts");
-            this.Logger.Debug("Script Path : " + this.ScriptPath);
-            Directory.CreateDirectory(this.ScriptPath);
-            string[] allFiles = Directory.GetFiles(this.ScriptPath);
+            SetupScripts(false);
+        }
+
+        public void SetupScripts(bool CheckOnly){
+            ScriptFiles = new List<string>();
+            Compiled = new List<string>();
+            Failed = new List<string>();
+            recipes = new List<MLRecipe>();
+            removes = new List<MLItem>();
+            this.Logger.Debug("Script Path : " + ScriptPath);
+            Directory.CreateDirectory(ScriptPath);
+            string[] allFiles = Directory.GetFiles(ScriptPath);
             foreach(string file in allFiles){
                 if(Path.GetExtension(file) == ".moon"){
                     string fileName = Path.GetFileName(file);
-                    this.ScriptFiles.Add(fileName);
+                    ScriptFiles.Add(fileName);
             }}
-            this.Logger.Debug("Script List : " + string.Join(",", this.ScriptFiles));
-            SetupScripts();
-        }
-
-        public void SetupScripts(){
-            foreach(string name in this.ScriptFiles){
-                Script script = new Script(Path.Combine(this.ScriptPath, name));
-                script.Load();
-                HashDict.Add(name, script.hash);
-                this.Logger.Info("Loaded " + name + ", MD5 : " + script.hexHash);
-                this.Logger.Info("Start Compile " + name);
-                script.Compile();
-                this.Logger.Info("Compiled " + name);
-                int i = 0;
-                foreach(MLRecipe recipe in script.GetRecipes())
-                    recipes.Add((MLRecipe)recipe);
-                foreach(MLItem item in script.GetRemoves())
-                    removes.Add(item);
+            this.Logger.Debug("Script List : " + string.Join(",", ScriptFiles));
+            foreach(string name in ScriptFiles){
+                try {
+                    Script script = new Script(Path.Combine(ScriptPath, name));
+                    script.Load();
+                    if (!CheckOnly) HashDict.Add(name, script.hash);
+                    this.Logger.Info("Loaded " + name + ", MD5 : " + script.hexHash);
+                    this.Logger.Info("Start Compile " + name);
+                    script.Compile();
+                    this.Logger.Info("Compiled " + name);
+                    Compiled.Add(name);
+                    foreach(MLRecipe recipe in script.GetRecipes())
+                        recipes.Add((MLRecipe)recipe);
+                    foreach(MLItem item in script.GetRemoves())
+                        removes.Add(item);
+                } catch (Exception e) {
+                    this.Logger.Error("Failed to compile script : " + name);
+                    this.Logger.Error(e);
+                    Failed.Add(name);
+                }
             }
         }
 

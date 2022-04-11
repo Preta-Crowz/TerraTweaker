@@ -1,4 +1,4 @@
-This version was built for 1.4(Alpha)
+This version was built for 1.4 (Alpha)
 
 Tweak Terraria experience with Custom Script!
 only recipe add/remove is aviliable for now.
