@@ -12,7 +12,6 @@ using Moonlight.Variable;
 namespace zzzTerraTweaker{
     class zzzTerraTweaker : Mod{
         public zzzTerraTweaker(){}
-        public readonly ModProperties Properties = ModProperties.AutoLoadAll;
 
         private string DataPath, ScriptPath;
         private List<string> ScriptFiles = new List<string>();
@@ -22,8 +21,7 @@ namespace zzzTerraTweaker{
         private List<MLItem> removes = new List<MLItem>();
 
         public override void Load(){
-            this.DataPath = Path.GetDirectoryName(Logging.LogDir);
-            this.ScriptPath = Path.Combine(this.DataPath, "Scripts");
+            this.ScriptPath = Path.Combine(Main.SavePath, "Scripts");
             this.Logger.Debug("Script Path : " + this.ScriptPath);
             Directory.CreateDirectory(this.ScriptPath);
             string[] allFiles = Directory.GetFiles(this.ScriptPath);

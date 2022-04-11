@@ -35,6 +35,10 @@ namespace Moonlight.Compile{
         public void MergeCell(Cell other){
             switch(this.Action){
                 case ':':
+                    if(this.Value is MLCondition) {
+                        this.Value.SetName(other.Value.GetValue());
+                        break;
+                    }
                     if(this.Value is MLArray && !this.Value[this.Value.Count-1].isEnded){
                         int cnt = this.Value.Value.Count-1;
                         if(this.Value.Value[cnt] is MLArray){

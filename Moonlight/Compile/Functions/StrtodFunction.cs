@@ -19,7 +19,10 @@ namespace Moonlight.Compile.Functions{
             dynamic V;
             item = item.Trim();
             tt.Value.Logger.Debug("Parse : "+item);
-            if(item.StartsWith("@")){
+            if(item.StartsWith("#")){
+                V = new MLCondition(item.Substring(1));
+            }
+            else if(item.StartsWith("@")){
                 string name = item.Substring(1);
                 V = (name == "Terraria") ?
                     MLMod.GetVanilla() : new MLMod(name);

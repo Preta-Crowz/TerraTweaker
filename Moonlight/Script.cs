@@ -43,6 +43,7 @@ namespace Moonlight{
                 IVariable Value = Split.Parse(expr, ref index, ';');
                 tt.Value.Logger.Debug("Parsed Expr to : "+Value.ToString());
                 string vt = Value.GetType();
+                if(vt == "Condition" && !Value.GetValue()) return;
                 if(vt == "Recipe") recipes.Add((MLRecipe)Value);
                 else if(vt == "Remove") removes.Add((MLItem)Value.GetValue());
             }

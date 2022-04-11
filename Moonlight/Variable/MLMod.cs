@@ -1,5 +1,6 @@
 using System;
 using Terraria.ModLoader;
+using Moonlight.Exception;
 using Moonlight.Vanilla;
 
 namespace Moonlight.Variable{
@@ -13,6 +14,7 @@ namespace Moonlight.Variable{
         }
 
         public MLMod(string name){
+            if (!ModLoader.HasMod(name)) throw new ModNotFoundException(name);
             this.Value = ModLoader.GetMod(name);
         }
 
