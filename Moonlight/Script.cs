@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
+using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System;
 
 using Moonlight.Compile;
@@ -12,6 +14,10 @@ namespace Moonlight{
 
         public string dir;
         public string script;
+        public byte[] hash;
+        public string hexHash {
+            get => Convert.ToHexString(hash);
+        }
 
         private bool loaded = false;
         private bool compiled = false;
@@ -28,6 +34,9 @@ namespace Moonlight{
 
         public void Load(){
             this.script = File.ReadAllText(dir);
+            MD5 hashCalc = MD5.Create();
+            hashCalc.ComputeHash(Encoding.UTF8.GetBytes(this.script));
+            this.hash = hashCalc.Hash;
             this.loaded = true;
         }
 

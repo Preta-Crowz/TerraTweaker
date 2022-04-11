@@ -1,6 +1,6 @@
-This version was built for 1.3(Legacy)
+This version was built for 1.4(Alpha)
 
-Modify Recipes with Custom Script
+Tweak Terraria experience with Custom Script!
 only recipe add/remove is aviliable for now.
 
 Script files should go /Scripts folder under data folder.
@@ -11,4 +11,4 @@ Use command /tt for some utils.
 Syntax information is on github wiki.
 
 Github : https://github.com/Preta-Crowz/TerraTweaker
-Discord : Preta#1614
+Discord : KoKoNya#0222
