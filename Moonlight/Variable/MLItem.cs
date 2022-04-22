@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace Moonlight.Variable{
-    class MLItem : IIngredient{
+    class MLItem : IVariable, IIngredient{
         ModItem Value;
         public int Code;
         public int Count = 1;

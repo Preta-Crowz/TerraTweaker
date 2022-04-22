@@ -1,7 +1,7 @@
 using Terraria.ModLoader;
 
 namespace Moonlight.Variable{
-    class MLRemove : IIngredient{
+    class MLRemove : IVariable, IWorkable{
         MLItem Value;
         public string Name;
         public bool isEnded = false;

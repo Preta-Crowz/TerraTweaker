@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria.ModLoader;
 
 namespace Moonlight.Variable{
-    class MLRecipe : IVariable{
+    class MLRecipe : IVariable, IWorkable{
         MLItem Value;
         public bool isEnded = false;
 

@@ -21,8 +21,7 @@ namespace zzzTerraTweaker{
         private Dictionary<string,byte[]> ServerHash;
         public static readonly string ScriptPath = Path.Combine(Main.SavePath, "Scripts");
 
-        public List<MLRecipe> recipes { get; private set; }
-        public List<MLItem> removes { get; private set; }
+        public List<IWorkable> Works { get; private set; }
 
         public override void Load(){
             SetupScripts(false);
@@ -32,8 +31,7 @@ namespace zzzTerraTweaker{
             ScriptFiles = new List<string>();
             Compiled = new List<string>();
             Failed = new List<string>();
-            recipes = new List<MLRecipe>();
-            removes = new List<MLItem>();
+            Works = new List<IWorkable>();
             this.Logger.Debug("Script Path : " + ScriptPath);
             Directory.CreateDirectory(ScriptPath);
             string[] allFiles = Directory.GetFiles(ScriptPath);
@@ -53,10 +51,8 @@ namespace zzzTerraTweaker{
                     script.Compile();
                     this.Logger.Info("Compiled " + name);
                     Compiled.Add(name);
-                    foreach(MLRecipe recipe in script.GetRecipes())
-                        recipes.Add((MLRecipe)recipe);
-                    foreach(MLItem item in script.GetRemoves())
-                        removes.Add(item);
+                    foreach(MLRecipe recipe in script.GetWorks())
+                        Works.Add(recipe);
                 } catch (Exception e) {
                     this.Logger.Error("Failed to compile script : " + name);
                     this.Logger.Error(e);
@@ -66,9 +62,11 @@ namespace zzzTerraTweaker{
         }
 
         public override void PostAddRecipes(){
-            RemoveRecipe(removes);
-            foreach(MLRecipe recipe in recipes)
-                RegisterRecipe(recipe);
+            foreach(IWorkable work in Works) {
+                if (work is MLRemove) RemoveRecipe((MLRemove)work);
+                else if (work is MLRecipe) RegisterRecipe((MLRecipe)work);
+                throw new Exception("Failed to parse work!");
+            }
         }
 
         public void RegisterRecipe(MLRecipe data){
@@ -94,12 +92,11 @@ namespace zzzTerraTweaker{
             this.Logger.Debug("Registered");
         }
 
-        public void RemoveRecipe(List<MLItem> data){
+        public void RemoveRecipe(MLRemove data){
             List<int> targets = new List<int>();
-            foreach(MLItem item in data){
-                if(item.isVanilla) targets.Add(item.GetValue());
-                else targets.Add(item.GetValue().type);
-            }
+            MLItem item = data.GetValue();
+            if(item.isVanilla) targets.Add(item.GetValue());
+            else targets.Add(item.GetValue().type);
             for (int i = 0; i < Recipe.numRecipes; i++) {
                 Recipe R = Main.recipe[i];
                 if(targets.Exists(id => id == R.createItem.type))

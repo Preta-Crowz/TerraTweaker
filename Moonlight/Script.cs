@@ -22,8 +22,7 @@ namespace Moonlight{
         private bool loaded = false;
         private bool compiled = false;
 
-        private List<MLRecipe> recipes = new List<MLRecipe>();
-        private List<MLItem> removes = new List<MLItem>();
+        private List<IWorkable> works = new List<IWorkable>();
         private List<string> errors = new List<string>();
 
         public IVariable vv;
@@ -52,9 +51,8 @@ namespace Moonlight{
                 IVariable Value = Split.Parse(expr, ref index, ';');
                 tt.Value.Logger.Debug("Parsed Expr to : "+Value.ToString());
                 string vt = Value.GetType();
-                if(vt == "Condition" && !Value.GetValue()) return;
-                if(vt == "Recipe") recipes.Add((MLRecipe)Value);
-                else if(vt == "Remove") removes.Add((MLItem)Value.GetValue());
+                if(Value is MLCondition && !Value.GetValue()) return;
+                if(Value is IWorkable) works.Add((IWorkable)Value);
             }
         }
 
@@ -66,14 +64,9 @@ namespace Moonlight{
             return compiled;
         }
 
-        public List<MLRecipe> GetRecipes(){
+        public List<IWorkable> GetWorks(){
             if(!this.IsCompiled()) this.Compile();
-            return this.recipes;
-        }
-
-        public List<MLItem> GetRemoves(){
-            if(!this.IsCompiled()) this.Compile();
-            return this.removes;
+            return this.works;
         }
     }
 }

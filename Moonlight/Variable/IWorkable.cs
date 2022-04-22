@@ -1,3 +1,3 @@
 namespace Moonlight.Variable{
-    interface IIngredient{}
+    interface IWorkable{}
 }
