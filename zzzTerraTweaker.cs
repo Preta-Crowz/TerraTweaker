@@ -100,7 +100,7 @@ namespace zzzTerraTweaker{
             for (int i = 0; i < Recipe.numRecipes; i++) {
                 Recipe R = Main.recipe[i];
                 if(targets.Exists(id => id == R.createItem.type))
-                    R.RemoveRecipe();
+                    R.DisableRecipe();
             }
         }
 
