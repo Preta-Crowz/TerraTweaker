@@ -1,5 +1,5 @@
 # TerraTweaker
-[![Discord](https://img.shields.io/discord/852091797303853096?color=%23F8BBD0)](https://discord.gg/PTd3nMBWFq)
+[![Discord](https://img.shields.io/discord/992073454637551707?color=%23F8BBD0)](https://discord.gg/jE8NyXYa3u)
 [![License](https://img.shields.io/github/license/Preta-Crowz/TerraTweaker?color=%23aeeaff)](https://github.com/Preta-Crowz/TerraTweaker/blob/master/LICENSE)
 
 Modify Terraria Recipe with Custom Script  
